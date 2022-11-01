@@ -2,6 +2,7 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import wallet from "../assets/img/wallet.svg";
 import { useWeb3Context } from "../context/web3Context";
+import { truncateAddress } from "../utils/conversions";
 
 const NavDropDown = () => {
   const {
@@ -16,15 +17,20 @@ const NavDropDown = () => {
   return (
     <>
       <Dropdown>
-        <Dropdown.Toggle
+        {/* <Dropdown.Toggle
           variant="light"
           align="end"
           id="dropdown-basic"
+         
+          style={{ width: "10rem" }}
+        > */}
+        <Dropdown.Toggle
+          variant="light"
+          id="dropdown-basic"
           className="d-flex align-items-center border"
         >
-          <div className="wallet">
-            <img src={wallet} alt="wallet" className="filter-svg" />
-          </div>
+          <img src={wallet} alt="wallet" className="filter-svg wallet" />
+          {truncateAddress(account)}{" "}
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="shadow-lg border-0">

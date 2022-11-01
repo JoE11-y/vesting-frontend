@@ -79,7 +79,7 @@ a {
 
 .main-nav .wallet {
   width: 2rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 }
 
 .disconnect {
@@ -95,6 +95,7 @@ a {
 
 h1,
 h4,
+p,
 span {
   color: black;
 }

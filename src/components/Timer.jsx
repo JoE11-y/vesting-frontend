@@ -7,6 +7,7 @@ const Timer = () => {
   const { days, hours, minutes, seconds } = useCountdown(1698831215);
   return (
     <div className="col-6 timerBox">
+      <p className="m2-txt1">Time till next release:</p>
       <div className=" timer bor1">
         <div className="flex-col-c-m wsize2 m-b-20">
           <span className="l1-txt2 p-b-4 days">{days}</span>
