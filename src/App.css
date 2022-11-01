@@ -13,7 +13,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "PT sans", "Roboto Mono", Arial, Helvetica, sans-serif;
-  color: #fff;
 }
 
 .bg-1 {
@@ -27,11 +26,6 @@ html {
 body {
   overflow-x: hidden;
   position: relative;
-}
-
-.centering {
-  position: relative;
-  width: 100vw;
 }
 
 img {
@@ -93,19 +87,13 @@ a {
   letter-spacing: 3px;
 }
 
-h1,
-h4,
-p,
-span {
-  color: black;
-}
-
 .box {
   height: 50rem;
 }
 
 .addressBox {
   text-align: center;
+  background-color: #d0d0d1;
 }
 
 .timerBox {
@@ -114,10 +102,12 @@ span {
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: #e6e6e6;
 }
 
 .adminBox {
   text-align: center;
+  background-color: #d0d0d1;
 }
 
 th,

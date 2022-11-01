@@ -17,7 +17,9 @@ const Header = () => {
   console.log(account);
   return (
     <header className="main-header">
-      <div className="logo">XYZ VESTING</div>
+      <div className="logo" style={{ color: "white" }}>
+        XYZ VESTING
+      </div>
       <div className="main-nav">
         {account ? (
           <NavDropDown />

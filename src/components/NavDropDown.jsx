@@ -17,13 +17,6 @@ const NavDropDown = () => {
   return (
     <>
       <Dropdown>
-        {/* <Dropdown.Toggle
-          variant="light"
-          align="end"
-          id="dropdown-basic"
-         
-          style={{ width: "10rem" }}
-        > */}
         <Dropdown.Toggle
           variant="light"
           id="dropdown-basic"

@@ -1,8 +1,16 @@
-import React from "react";
-import { Table, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Table, Button, Form, FloatingLabel } from "react-bootstrap";
+import { truncateAddress } from "../utils/conversions";
 
 const VestedAddresses = () => {
-  const addresses = ["0x0001", "0x0002", "0x0003", "0x0004", "0x0005"];
+  const addresses = [
+    "0x000100000000000",
+    "0x000200000000000000",
+    "0x0003000000000000000",
+    "0x000400000000000000000000",
+    "0x0005000000000000000000000",
+  ];
+  const [newAddress, setNewAddress] = useState("");
   return (
     <div className="col addressBox">
       <Table>
@@ -15,14 +23,34 @@ const VestedAddresses = () => {
           {addresses.map((address, index) => (
             <tr key={index}>
               <td>
-                <span>{address}</span>
+                <a
+                  href={`https://mumbai.polygonscan.com/address/${address}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {truncateAddress(address)}
+                </a>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-
-      <Button variant="outline-dark">Add Address</Button>
+      <Form>
+        <FloatingLabel
+          controlId="inputAddress"
+          label="Enter address"
+          className="mb-3"
+        >
+          <Form.Control
+            type="text"
+            onChange={(e) => {
+              setNewAddress(e.target.value);
+            }}
+            placeholder="Add address"
+          />
+        </FloatingLabel>
+        <Button variant="outline-dark">Add Address</Button>
+      </Form>
     </div>
   );
 };
