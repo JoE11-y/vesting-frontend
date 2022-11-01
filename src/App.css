@@ -68,6 +68,7 @@ a {
   border-bottom: 1px solid var(--main-color);
   position: relative;
   z-index: 10;
+  margin-bottom: 2rem;
 }
 
 .main-nav {
@@ -90,4 +91,41 @@ a {
 .logo {
   margin-left: 5rem;
   letter-spacing: 3px;
+}
+
+h1,
+h4,
+span {
+  color: black;
+}
+
+.box {
+  height: 50rem;
+}
+
+.addressBox {
+  text-align: center;
+}
+
+.timerBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.adminBox {
+  text-align: center;
+}
+
+th,
+td {
+  color: black;
+  text-align: center;
+}
+
+.filter-svg {
+  filter: invert(100%) sepia(67%) saturate(10%) hue-rotate(241deg)
+    brightness(104%) contrast(100%);
 }

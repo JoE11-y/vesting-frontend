@@ -20,10 +20,10 @@ const NavDropDown = () => {
           variant="light"
           align="end"
           id="dropdown-basic"
-          className="d-flex align-items-center border rounded-pill py-1"
+          className="d-flex align-items-center border"
         >
           <div className="wallet">
-            <img src={wallet} alt="wallet" />
+            <img src={wallet} alt="wallet" className="filter-svg" />
           </div>
         </Dropdown.Toggle>
 
@@ -34,10 +34,10 @@ const NavDropDown = () => {
             className="d-flex align-items-center"
           >
             <i
-              className="bi bi-person-circle me-2 fs-4"
+              className="bi bi-journal me-2 fs-4"
               style={{ color: "black" }}
-            ></i>
-            Address
+            ></i>{" "}
+            ADDRESS
           </Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item
@@ -50,8 +50,8 @@ const NavDropDown = () => {
             <i
               className="bi bi-box-arrow-right me-2 fs-4"
               style={{ color: "black" }}
-            />
-            DISCONNECT
+            />{" "}
+            LOGOUT
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

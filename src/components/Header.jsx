@@ -14,7 +14,7 @@ const Header = () => {
     const data = await connectWalletMetamask();
     updateAccount(data);
   };
-
+  console.log(account);
   return (
     <header className="main-header">
       <div className="logo">XYZ VESTING</div>

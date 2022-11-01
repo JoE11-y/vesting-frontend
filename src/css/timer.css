@@ -1,0 +1,40 @@
+.bor1 {
+  border: 2px solid rgba(0, 0, 0, 0.35);
+}
+
+.timer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.flex-col-c-m {
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.wsize2 {
+  width: 100px;
+}
+
+.m-b-20 {
+  margin-bottom: 20px;
+}
+
+.l1-txt2 {
+  font-size: 50px;
+  color: #303944;
+  line-height: 1;
+}
+.p-b-4 {
+  padding-bottom: 4px;
+}
+
+.m2-txt2 {
+  font-size: 12px;
+  color: rgb(70, 63, 63);
+  line-height: 1;
+}
