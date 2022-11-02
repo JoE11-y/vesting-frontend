@@ -56,7 +56,7 @@ const Timer = () => {
       </p>
 
       <div className=" timer bor1">
-        <span className="m2-txt">Next Release</span>
+        <span className="m2-txt3">Next Release</span>
         <div className="flex-col-c-m wsize2 m-b-20">
           <span className="l1-txt2 p-b-4 days">{days}</span>
           <span className="m2-txt2">Days</span>
