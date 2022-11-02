@@ -1,13 +1,78 @@
-import React, { useState } from "react";
-import { Table, Button, Form, FloatingLabel } from "react-bootstrap";
+import React, { useState, useCallback, useEffect } from "react";
+import { Table, Button, Form, FloatingLabel, Spinner } from "react-bootstrap";
 import { truncateAddress } from "../utils/conversions";
+import { useWeb3Context } from "../context/web3Context";
+import {
+  getAdmin,
+  updateAmount,
+  updateReleaseInterval,
+  setAdmin,
+} from "../api/vesting";
 
 const AdminBox = () => {
-  const [adminAddress, setAdminAddress] = useState("");
-  const [newSchedule, setNewSchedule] = useState(1);
-  const [newAmount, setNewAmount] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
 
-  const admin = "0x0s0s0dsdfjksdlsdskjdfsdjfk";
+  const [adminAddress, setAdminAddress] = useState("");
+  const [newAdmin, setNewAdmin] = useState("");
+  const [newSchedule, setNewSchedule] = useState("");
+  const [newAmount, setNewAmount] = useState("");
+
+  const {
+    state: { account, provider },
+  } = useWeb3Context();
+
+  const getAdminAddress = useCallback(async () => {
+    const adminAddress = await getAdmin();
+    setAdminAddress(adminAddress);
+  }, []);
+
+  const startNewAdminTxn = async () => {
+    if (account && provider) {
+      setLoading(true);
+      try {
+        await setAdmin(provider, newAdmin);
+        setNewAdmin("");
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const startUpdateAmountTxn = async () => {
+    if (account && provider) {
+      setLoading1(true);
+      try {
+        await updateAmount(provider, newAmount);
+        setNewAmount("");
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading1(false);
+      }
+    }
+  };
+
+  const startUpdateIntervalTxn = async () => {
+    if (account && provider) {
+      setLoading2(true);
+      try {
+        await updateReleaseInterval(provider, newSchedule);
+        setNewSchedule("");
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading2(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getAdminAddress();
+  }, [getAdminAddress]);
 
   return (
     <div className="col adminBox">
@@ -23,11 +88,11 @@ const AdminBox = () => {
               <span>
                 Admin:{" "}
                 <a
-                  href={`https://mumbai.polygonscan.com/address/${admin}`}
+                  href={`https://mumbai.polygonscan.com/address/${adminAddress}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  {truncateAddress(admin)}
+                  {truncateAddress(adminAddress)}
                 </a>
               </span>
             </td>
@@ -37,19 +102,35 @@ const AdminBox = () => {
               <Form>
                 <FloatingLabel
                   controlId="inputAddress"
-                  label="Enter Address "
+                  label="Enter address "
                   className="mb-3"
                 >
                   <Form.Control
                     type="text"
                     onChange={(e) => {
-                      setAdminAddress(e.target.value);
+                      setNewAdmin(e.target.value);
                     }}
+                    value={newAdmin}
                     placeholder="Enter new address"
                   />
                 </FloatingLabel>
-                <Button variant="outline-dark" style={{ width: "10rem" }}>
-                  Change Admin
+                <Button
+                  variant="outline-dark"
+                  style={{ width: "10rem" }}
+                  onClick={() => startNewAdminTxn()}
+                  disabled={!(account && provider && newAdmin)}
+                >
+                  {loading ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    "Change Admin"
+                  )}
                 </Button>
               </Form>
             </td>
@@ -68,11 +149,27 @@ const AdminBox = () => {
                     onChange={(e) => {
                       setNewSchedule(e.target.value);
                     }}
-                    placeholder="Enter new address"
+                    value={newSchedule}
+                    placeholder="Enter new schedule"
                   />
                 </FloatingLabel>
-                <Button variant="outline-dark" style={{ width: "10rem" }}>
-                  Change Schedule
+                <Button
+                  variant="outline-dark"
+                  style={{ width: "10rem" }}
+                  onClick={() => startUpdateIntervalTxn()}
+                  disabled={!(account && provider && newSchedule)}
+                >
+                  {loading2 ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    "Change Schedule"
+                  )}
                 </Button>
               </Form>
             </td>
@@ -91,11 +188,27 @@ const AdminBox = () => {
                     onChange={(e) => {
                       setNewAmount(e.target.value);
                     }}
+                    value={newAmount}
                     placeholder="Enter amount of tokens"
                   />
                 </FloatingLabel>
-                <Button variant="outline-dark" style={{ width: "10rem" }}>
-                  Change Amount
+                <Button
+                  variant="outline-dark"
+                  style={{ width: "10rem" }}
+                  onClick={() => startUpdateAmountTxn()}
+                  disabled={!(account && provider && newAmount)}
+                >
+                  {loading1 ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    "Change Amount"
+                  )}
                 </Button>
               </Form>
             </td>

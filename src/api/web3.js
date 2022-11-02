@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 
 export async function connectWalletMetamask() {
-  //@ts-ignore
   const { ethereum } = window;
 
   const accounts = await ethereum.request({

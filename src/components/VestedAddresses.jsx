@@ -1,16 +1,45 @@
-import React, { useState } from "react";
-import { Table, Button, Form, FloatingLabel } from "react-bootstrap";
+import React, { useState, useCallback, useEffect } from "react";
+import { Table, Button, Form, FloatingLabel, Spinner } from "react-bootstrap";
 import { truncateAddress } from "../utils/conversions";
+import { useWeb3Context } from "../context/web3Context";
+import { getVestedAddresses, addNewVestedAddress } from "../api/vesting";
 
 const VestedAddresses = () => {
-  const addresses = [
-    "0x000100000000000",
-    "0x000200000000000000",
-    "0x0003000000000000000",
-    "0x000400000000000000000000",
-    "0x0005000000000000000000000",
-  ];
+  const {
+    state: { account, provider },
+  } = useWeb3Context();
+
+  const [loading, setLoading] = useState(false);
+
+  const [vestedAddresses, setVestedAddresses] = useState([]);
+
   const [newAddress, setNewAddress] = useState("");
+
+  const getAddress = useCallback(async () => {
+    const vestedAddress = await getVestedAddresses();
+    setVestedAddresses(vestedAddress);
+  }, []);
+
+  const addAddress = async () => {
+    if (account && provider) {
+      if (!newAddress) return;
+      setLoading(true);
+      try {
+        await addNewVestedAddress(provider, newAddress);
+        setNewAddress("");
+        getAddress();
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getAddress();
+  }, [getAddress]);
+
   return (
     <div className="col addressBox">
       <Table>
@@ -20,7 +49,7 @@ const VestedAddresses = () => {
           </tr>
         </thead>
         <tbody>
-          {addresses.map((address, index) => (
+          {vestedAddresses.map((address, index) => (
             <tr key={index}>
               <td>
                 <a
@@ -46,10 +75,28 @@ const VestedAddresses = () => {
             onChange={(e) => {
               setNewAddress(e.target.value);
             }}
+            value={newAddress}
             placeholder="Add address"
           />
         </FloatingLabel>
-        <Button variant="outline-dark">Add Address</Button>
+        <Button
+          variant="outline-dark"
+          onClick={() => addAddress()}
+          style={{ width: "10rem" }}
+          disabled={!(account && provider && newAddress)}
+        >
+          {loading ? (
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          ) : (
+            "Add Address"
+          )}
+        </Button>
       </Form>
     </div>
   );
